@@ -1,0 +1,47 @@
+= form_for @member do |f|
+  .container
+    .row
+      .span4
+        .form-group
+          = f.label :first_name, 'First Name', :style => 'width: 100%;'
+          = f.text_field :first_name, :class => 'form-control', :style => 'width: 100%;'
+      .span4
+        .form-group
+          = f.label :last_name, 'Last Name', :style => 'width: 100%;'
+          = f.text_field :last_name, :class => 'form-control', :style => 'width: 100%;'
+    .row
+      .span4
+        .form-group
+          = f.label :email_address, 'Email Address', :style => 'width: 100%;'
+          = f.email_field :email_address, :class => 'form-control', :style => 'width: 100%;'
+      .span4
+        .form-group
+          = f.label :phone_number, 'Phone Number', :style => 'width: 100%;'
+          = f.telephone_field :phone_number, :class => 'form-control', :style => 'width: 100%;'
+    .row
+      .span8
+        .form-group
+          = f.label :address1, 'Address 1', :style => 'width: 100%;'
+          = f.text_field :address1, :class => 'form-control', :style => 'width: 100%;'
+    .row
+      .span8
+        .form-group
+          = f.label :address2, 'Address 2', :style => 'width: 100%;'
+          = f.text_field :address2, :class => 'form-control', :style => 'width: 100%;'
+    .row
+      .span4
+        .form-group
+          = f.label :city, :style => 'width: 100%;'
+          = f.text_field :city, :class => 'form-control', :style => 'width: 100%;'
+      .span1
+        .form-group
+          = f.label :state, :style => 'width: 100%;'
+          = select_tag :state, options_for_select(us_states), :class => 'form-control', :style => 'width: 100%; min-width: 60px;', :name => 'member[state]', :id => 'member_state'
+      .span3
+        .form-group
+          = f.label :zipcode, :style => 'width: 100%;'
+          = f.text_field :zipcode, :class => 'form-control', :style => 'width: 100%;'
+    .row
+      %div{ :class => 'span8', :style => 'text-align: right;' }
+        = f.submit nil, :class => 'btn btn-primary'
+        = link_to t('.cancel', :default => t("helpers.links.cancel")), members_path, :class => 'btn'

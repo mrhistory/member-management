@@ -1,0 +1,31 @@
+%html
+  %head
+    %title= '1Voice - Member Management'
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+    %meta{ :name => 'viewport', :content => 'width=device-width, initial-scale=1.0' }
+  
+  %body
+    %div{ :class => 'navbar navbar-fixed-top' }
+      .navbar-inner
+        .container
+          %a{ :class => 'btn btn-navbar', 'data-toggle' => 'collapse', 'data-target' => '#main-nav-bar' }
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+          %a{ :class => 'brand', :href => '#' }= '1Voice - Member Management'
+
+          #main-nav-bar.nav-collapse
+            %ul{ :class => 'nav navbar-nav' }
+              = content_tag(:li, link_to('Home'), :class => "#{'active' if session[:tab] == :home}")
+              = content_tag(:li, link_to('Members', members_path), :class => "#{'active' if session[:tab] == :members}")
+              = content_tag(:li, link_to('Users'), :class => "#{'active' if session[:tab] == :users}")
+
+            %ul{ :class => 'nav navbar-nav pull-right' }
+              = content_tag(:li, link_to('Settings'), :class => "#{'active' if session[:tab] == :settings}")
+              %li= link_to "Logout"
+
+    .container
+      .row
+        .span12= yield

@@ -1,0 +1,36 @@
+- model_class = Member
+%h3=t '.title', :default => model_class.model_name.human.pluralize.titleize
+
+= form_tag('/search', method: 'get', :class => 'form-inline') do
+  .form-group
+    = search_field(:search, :member, :class => 'form-control input-sm')
+    = submit_tag('Search', :class => 'btn btn-default btn-sm')
+
+%table.table.table-striped
+  %thead
+    %tr
+      %th= 'First Name'
+      %th= 'Last Name'
+      %th= 'Email Address'
+      %th= 'Address'
+      %th= 'City'
+      %th= 'State'
+      %th= 'Zipcode'
+      %th= 'Phone Number'
+      %th
+  %tbody
+    - @members.each do |member|
+      %tr
+        %td= link_to member.first_name, member_path(member)
+        %td= member.last_name
+        %td= member.email_address
+        %td= member.address1
+        %td= member.city
+        %td= member.state
+        %td= member.zipcode
+        %td= member.phone_number
+        %td
+          = link_to t('.edit', :default => t("helpers.links.edit")), edit_member_path(member), :class => 'btn btn-mini'
+          = link_to t('.destroy', :default => t("helpers.links.destroy")), member_path(member), :method => :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-mini btn-danger'
+
+= link_to t('.new', :default => t("helpers.links.new")), new_member_path, :class => 'btn btn-primary'

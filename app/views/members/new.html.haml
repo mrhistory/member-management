@@ -1,0 +1,7 @@
+- model_class = Member
+.container
+  .row
+    .span2
+    .span8
+      %h3=t '.title', :default => [:'helpers.titles.new', 'New %{model}'], :model => model_class.model_name.human.titleize
+      = render :partial => "form"
