@@ -13,6 +13,7 @@ gem 'haml-rails'
 gem 'twitter-bootstrap-rails'
 gem 'less-rails-bootstrap'
 gem 'therubyracer'
+gem 'will_paginate'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

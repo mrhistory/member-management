@@ -1,23 +1,40 @@
 - model_class = Member
 %h3=t '.title', :default => model_class.model_name.human.pluralize.titleize
 
-= form_tag('/search', method: 'get', :class => 'form-inline') do
+= form_tag(members_path, method: 'get', :class => 'form-inline', :id => 'members_search') do
   .form-group
-    = search_field(:search, :member, :class => 'form-control input-sm')
-    = submit_tag('Search', :class => 'btn btn-default btn-sm')
+    = hidden_field_tag(:direction, params[:direction])
+    = hidden_field_tag(:sort, params[:sort])
+    = text_field_tag(:search, params[:search])
+    = submit_tag('Search', :class => 'btn btn-mini btn-default')
 
 %table.table.table-striped
   %thead
     %tr
-      %th= 'First Name'
-      %th= 'Last Name'
-      %th= 'Email Address'
-      %th= 'Address'
-      %th= 'City'
-      %th= 'State'
-      %th= 'Zipcode'
-      %th= 'Phone Number'
       %th
+        = sortable_link 'first_name'
+        %i{ :class => sortable_class('first_name') }
+      %th
+        = sortable_link 'last_name'
+        %i{ :class => sortable_class('last_name') }
+      %th
+        = sortable_link 'email_address'
+        %i{ :class => sortable_class('email_address') }
+      %th
+        = sortable_link 'address1', 'Address'
+        %i{ :class => sortable_class('address1') }
+      %th
+        = sortable_link 'city'
+        %i{ :class => sortable_class('city') }
+      %th
+        = sortable_link 'state'
+        %i{ :class => sortable_class('state') }
+      %th
+        = sortable_link 'zipcode'
+        %i{ :class => sortable_class('zipcode') }
+      %th
+        = sortable_link 'phone_number'
+        %i{ :class => sortable_class('phone_number') }
   %tbody
     - @members.each do |member|
       %tr
@@ -29,8 +46,7 @@
         %td= member.state
         %td= member.zipcode
         %td= member.phone_number
-        %td
-          = link_to t('.edit', :default => t("helpers.links.edit")), edit_member_path(member), :class => 'btn btn-mini'
-          = link_to t('.destroy', :default => t("helpers.links.destroy")), member_path(member), :method => :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-mini btn-danger'
+
+= will_paginate @members
 
 = link_to t('.new', :default => t("helpers.links.new")), new_member_path, :class => 'btn btn-primary'
