@@ -44,4 +44,4 @@
     .row
       %div{ :class => 'span8', :style => 'text-align: right;' }
         = f.submit nil, :class => 'btn btn-primary'
-        = link_to t('.cancel', :default => t("helpers.links.cancel")), members_path, :class => 'btn'
+        = link_to t('.cancel', :default => t("helpers.links.cancel")), members_path(:sort => session[:members_sort], :direction => session[:members_direction], :page => session[:members_page], :search => session[:members_search]), :class => 'btn'

@@ -1,0 +1,8 @@
+development:
+  allow_member_record_edits: true
+
+test:
+  allow_member_record_edits: true
+
+production:
+  allow_member_record_edits: true

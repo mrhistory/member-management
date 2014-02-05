@@ -5,7 +5,12 @@ class MembersController < ApplicationController
   # GET /members
   # GET /members.json
   def index
-    @members = Member.search(params[:search]).order(sort_column + " " + sort_direction).paginate(per_page: 10, page: params[:page])
+    session[:members_sort] = params[:sort]
+    session[:members_direction] = params[:direction]
+    session[:members_page] = params[:page]
+    session[:members_search] = params[:search]
+
+    @members = Member.search(session[:members_search]).order(sort_column + " " + sort_direction).paginate(per_page: 10, page: session[:members_page])
     set_tab(:members)
   end
 
@@ -24,6 +29,9 @@ class MembersController < ApplicationController
   # GET /members/1/edit
   def edit
     set_tab(:members)
+    if !APP_CONFIG[:allow_member_record_edits]
+      redirect_to action: 'index'
+    end
   end
 
   # POST /members
@@ -78,10 +86,10 @@ class MembersController < ApplicationController
     end
 
     def sort_column
-      Member.column_names.include?(params[:sort]) ? params[:sort] : "first_name"
+      Member.column_names.include?(session[:members_sort]) ? session[:members_sort] : "first_name"
     end
     
     def sort_direction
-      %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+      %w[asc desc].include?(session[:members_direction]) ? session[:members_direction] : "asc"
     end
 end
