@@ -20,7 +20,7 @@
             %ul{ :class => 'nav navbar-nav' }
               = content_tag(:li, link_to('Home'), :class => "#{'active' if session[:tab] == :home}")
               = content_tag(:li, link_to('Members', members_path), :class => "#{'active' if session[:tab] == :members}")
-              = content_tag(:li, link_to('Users'), :class => "#{'active' if session[:tab] == :users}")
+              = content_tag(:li, link_to('Users', users_path), :class => "#{'active' if session[:tab] == :users}")
 
             %ul{ :class => 'nav navbar-nav pull-right' }
               = content_tag(:li, link_to('Settings'), :class => "#{'active' if session[:tab] == :settings}")
