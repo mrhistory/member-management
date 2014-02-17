@@ -1,10 +1,16 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  helper_method :sort_column, :sort_direction
 
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    session[:users_sort] = params[:sort]
+    session[:users_direction] = params[:direction]
+    session[:users_page] = params[:page]
+    session[:users_search] = params[:search]
+
+    @users = User.search(session[:users_search]).order(sort_column + " " + sort_direction).paginate(per_page: 10, page: session[:users_page])
     set_tab(:users)
   end
 
@@ -73,6 +79,14 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params[:user]
+      params[:user, :email_address]
+    end
+
+    def sort_column
+      User.column_names.include?(session[:users_sort]) ? session[:users_sort] : "email_address"
+    end
+    
+    def sort_direction
+      %w[asc desc].include?(session[:users_direction]) ? session[:users_direction] : "asc"
     end
 end

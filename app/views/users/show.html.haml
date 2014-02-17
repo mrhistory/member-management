@@ -1,9 +1,22 @@
 - model_class = User
-.page-header
-  %h1=t '.title', :default => model_class.model_name.human.titleize
+.container
+  .row
+    .span2
+    .span8
+      %h3=t '.title', :default => model_class.model_name.human.titleize
+
+      .container
+        .row
+          .span4
+            %p
+              %strong= 'Email Address'
+              %br
+              = @user.email_address
 
 
-.form-actions
-  = link_to t('.back', :default => t("helpers.links.back")), users_path, :class => 'btn'
-  = link_to t('.edit', :default => t("helpers.links.edit")), edit_user_path(@user), :class => 'btn'
-  = link_to t('.destroy', :default => t("helpers.links.destroy")), user_path(@user), :method => "delete", :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-danger'
+      .row
+        %br
+        %div{ :class => 'span7', :style => 'text-align: left;' }
+          = link_to t('.back', :default => t("helpers.links.back")), users_path(:sort => session[:users_sort], :direction => session[:users_direction], :page => session[:users_page], :search => session[:users_search]), :class => 'btn'
+          = link_to t('.edit', :default => t("helpers.links.edit")), edit_user_path(@user), :class => 'btn'
+          = link_to t('.destroy', :default => t("helpers.links.destroy")), user_path(@user), :method => "delete", :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-danger'

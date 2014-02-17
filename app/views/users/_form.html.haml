@@ -1,4 +1,11 @@
-= form_for @user, :html => { :class => 'form-horizontal' } do |f|
-  .form-actions
-    = f.submit nil, :class => 'btn btn-primary'
-    = link_to t('.cancel', :default => t("helpers.links.cancel")), users_path, :class => 'btn'
+= form_for @user do |f|
+  .container
+    .row
+      .span4
+        .form_group
+          = f.label(:email_address, 'Email Address', :style => 'width: 100%;')
+          = f.text_field(:email_address, :class => 'form-control', :style => 'width: 100%;')
+    .row
+      %div{ :class => 'span4', :style => 'text-align: left;' }
+        = f.submit(nil, :class => 'btn btn-primary')
+        = link_to(t('.cancel', :default => t("helpers.links.cancel")), users_path(:sort => session[:users_sort], :direction => session[:users_direction], :page => session[:users_page], :search => session[:users_search]), :class => 'btn')

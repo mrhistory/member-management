@@ -1,6 +1,6 @@
+# Create test Member records
 count = 0
-
-10.times do
+20.times do
   Member.create(
     first_name: 'Test',
     last_name: count.to_s,
@@ -11,6 +11,14 @@ count = 0
     email_address: 'test' + count.to_s + '@fake.com',
     phone_number: '123456789' + count.to_s
   )
+  count += 1
+end
 
+# Create test User records
+count = 0
+20.times do
+  User.create(
+    email_address: 'test' + count.to_s + '@fake.com'
+  )
   count += 1
 end
