@@ -18,7 +18,15 @@ end
 count = 0
 20.times do
   User.create(
-    email_address: 'test' + count.to_s + '@fake.com'
+    email_address: 'test' + count.to_s + '@fake.com',
+    password: 'fake',
+    password_confirmation: 'fake'
   )
   count += 1
 end
+
+User.create(
+  email_address: 'mrhistory@gmail.com',
+  password: 'admin01',
+  password_confirmation: 'admin01'
+)

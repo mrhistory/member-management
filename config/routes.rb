@@ -1,6 +1,9 @@
 MemberManagement::Application.routes.draw do
-  resources :users
+  get 'login' => 'users#login'
+  post 'authenticate' => 'users#authenticate'
+  get 'logout' => 'users#logout'
 
+  resources :users
   resources :members
 
   # The priority is based upon order of creation: first created -> highest priority.

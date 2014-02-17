@@ -14,7 +14,7 @@ gem 'twitter-bootstrap-rails'
 gem 'less-rails-bootstrap'
 gem 'therubyracer'
 gem 'will_paginate'
-gem 'bcrypt-ruby'
+gem 'bcrypt-ruby', '~> 3.1.2'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

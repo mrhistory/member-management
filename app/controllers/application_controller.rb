@@ -6,4 +6,13 @@ class ApplicationController < ActionController::Base
   def set_tab(tab_name)
     session[:tab] = tab_name
   end
+
+  def authenticate!
+    if session[:user].nil?
+      if cookies.signed[:user].nil?
+        redirect_to login_path
+      else
+        session[:user] = cookies[:user]
+    end 
+  end
 end

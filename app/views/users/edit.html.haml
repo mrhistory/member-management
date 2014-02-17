@@ -1,7 +1,6 @@
 - model_class = User
 .container
   .row
-    .span2
-    .span8
+    .span8.offset2
       %h3=t '.title', :default => [:'helpers.titles.edit', 'Edit %{model}'], :model => model_class.model_name.human.titleize
       = render :partial => "form"

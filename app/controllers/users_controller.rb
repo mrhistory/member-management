@@ -2,9 +2,35 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   helper_method :sort_column, :sort_direction
 
+  # GET /login
+  def login
+    set_tab(:login)
+  end
+
+  # POST /authenticate
+  def authenticate
+    session[:user] = User.where(email_address: params[:email_address]).first.try(:authenticate, params[:password])
+    if !session[:user].nil?
+      cookies.signed[:user] = session[:user] unless params[:remember_me] != '1'
+      redirect_to users_path
+    else
+      @error = 'Incorrect email address or password.'
+      render action: 'login'
+    end
+    set_tab(:login)
+  end
+
+  # GET /logout
+  def logout
+    cookies.delete :user
+    reset_session
+    redirect_to login_path
+  end
+
   # GET /users
   # GET /users.json
   def index
+    authenticate!
     session[:users_sort] = params[:sort]
     session[:users_direction] = params[:direction]
     session[:users_page] = params[:page]
@@ -17,23 +43,27 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    authenticate!
     set_tab(:users)
   end
 
   # GET /users/new
   def new
+    authenticate!
     @user = User.new
     set_tab(:users)
   end
 
   # GET /users/1/edit
   def edit
+    authenticate!
     set_tab(:users)
   end
 
   # POST /users
   # POST /users.json
   def create
+    authenticate!
     @user = User.new(user_params)
 
     respond_to do |format|
@@ -50,6 +80,7 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
+    authenticate!
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
@@ -64,6 +95,7 @@ class UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
+    authenticate!
     @user.destroy
     respond_to do |format|
       format.html { redirect_to users_url }
@@ -79,7 +111,7 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params[:user, :email_address]
+      params.require(:user).permit(:email_address, :password, :password_confirmation)
     end
 
     def sort_column

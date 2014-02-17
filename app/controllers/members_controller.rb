@@ -5,6 +5,7 @@ class MembersController < ApplicationController
   # GET /members
   # GET /members.json
   def index
+    authenticate!
     session[:members_sort] = params[:sort]
     session[:members_direction] = params[:direction]
     session[:members_page] = params[:page]
@@ -17,17 +18,20 @@ class MembersController < ApplicationController
   # GET /members/1
   # GET /members/1.json
   def show
+    authenticate!
     set_tab(:members)
   end
 
   # GET /members/new
   def new
+    authenticate!
     @member = Member.new
     set_tab(:members)
   end
 
   # GET /members/1/edit
   def edit
+    authenticate!
     set_tab(:members)
     if !APP_CONFIG[:allow_member_record_edits]
       redirect_to action: 'index'
@@ -37,6 +41,7 @@ class MembersController < ApplicationController
   # POST /members
   # POST /members.json
   def create
+    authenticate!
     @member = Member.new(member_params)
 
     respond_to do |format|
@@ -53,6 +58,7 @@ class MembersController < ApplicationController
   # PATCH/PUT /members/1
   # PATCH/PUT /members/1.json
   def update
+    authenticate!
     respond_to do |format|
       if @member.update(member_params)
         format.html { redirect_to @member, notice: 'Member was successfully updated.' }
@@ -67,6 +73,7 @@ class MembersController < ApplicationController
   # DELETE /members/1
   # DELETE /members/1.json
   def destroy
+    authenticate!
     @member.destroy
     respond_to do |format|
       format.html { redirect_to members_url }
