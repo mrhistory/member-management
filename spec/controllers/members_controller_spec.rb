@@ -19,6 +19,9 @@ require 'spec_helper'
 # that an instance is receiving a specific message.
 
 describe MembersController do
+  before do
+    session[:user] = 21
+  end
 
   # This should return the minimal set of attributes required to create a valid
   # Member. As you add validations to Member, be sure to

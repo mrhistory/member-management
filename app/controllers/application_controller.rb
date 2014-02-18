@@ -13,6 +13,7 @@ class ApplicationController < ActionController::Base
         redirect_to login_path
       else
         session[:user] = cookies[:user]
+      end
     end 
   end
 end

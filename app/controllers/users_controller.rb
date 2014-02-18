@@ -12,7 +12,7 @@ class UsersController < ApplicationController
     session[:user] = User.where(email_address: params[:email_address]).first.try(:authenticate, params[:password])
     if !session[:user].nil?
       cookies.signed[:user] = session[:user] unless params[:remember_me] != '1'
-      redirect_to users_path
+      redirect_to members_path
     else
       @error = 'Incorrect email address or password.'
       render action: 'login'

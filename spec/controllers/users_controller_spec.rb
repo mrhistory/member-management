@@ -19,11 +19,14 @@ require 'spec_helper'
 # that an instance is receiving a specific message.
 
 describe UsersController do
+  before do
+    session[:user] = 21
+  end
 
   # This should return the minimal set of attributes required to create a valid
   # User. As you add validations to User, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) { {  } }
+  let(:valid_attributes) { { email_address: 'fake@fake.com', password: 'fake', password_confirmation: 'fake' } }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
@@ -106,8 +109,8 @@ describe UsersController do
         # specifies that the User created on the previous line
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
-        User.any_instance.should_receive(:update).with({ "these" => "params" })
-        put :update, {:id => user.to_param, :user => { "these" => "params" }}, valid_session
+        User.any_instance.should_receive(:update).with(valid_attributes)
+        put :update, {:id => user.to_param, :user => valid_attributes}, valid_session
       end
 
       it "assigns the requested user as @user" do
