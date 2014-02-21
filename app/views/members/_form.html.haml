@@ -1,6 +1,14 @@
 = form_for @member do |f|
   .container
     .row
+      .span8
+        - if @member.errors.any?
+          .alert.alert-danger
+            %h6= pluralize(@member.errors.count, 'error') + ' prevented this user from being saved.'
+            %ul
+              - @member.errors.full_messages.each do |msg|
+                %li= msg
+    .row
       .span4
         .form-group
           = f.label(:first_name, 'First Name', :style => 'width: 100%;')

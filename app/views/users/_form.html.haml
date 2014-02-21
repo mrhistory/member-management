@@ -1,14 +1,22 @@
 = form_for @user do |f|
   .container
     .row
+      .span8
+        - if @user.errors.any?
+          .alert.alert-danger
+            %h6= pluralize(@user.errors.count, 'error') + ' prevented this user from being saved.'
+            %ul
+              - @user.errors.full_messages.each do |msg|
+                %li= msg
+    .row
       .span4
         .form_group
           = f.label(:email_address, 'Email Address', :style => 'width: 100%;')
           = f.email_field(:email_address, :class => 'form-control', :style => 'width: 100%;', :autofocus => true)
-          = f.label(:password, 'Password', :style => 'width: 100%;')
-          = f.password_field(:password, :class => 'form-control', :style => 'width: 100%;')
-          = f.label(:password_confirmation, 'Confirm Password', :style => 'width: 100%;')
-          = f.password_field(:password_confirmation, :class => 'form-control', :style => 'width: 100%;')
+          / = f.label(:password, 'Password', :style => 'width: 100%;')
+          / = f.password_field(:password, :class => 'form-control', :style => 'width: 100%;')
+          / = f.label(:password_confirmation, 'Confirm Password', :style => 'width: 100%;')
+          / = f.password_field(:password_confirmation, :class => 'form-control', :style => 'width: 100%;')
     .row
       %div{ :class => 'span4', :style => 'text-align: left;' }
         = f.submit(nil, :class => 'btn btn-primary')

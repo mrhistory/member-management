@@ -1,6 +1,6 @@
 %html
   %head
-    %title= '1Voice - Member Management'
+    %title= '1Voice - Members'
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
@@ -14,12 +14,11 @@
             %span.icon-bar
             %span.icon-bar
             %span.icon-bar
-          %a{ :class => 'brand', :href => '#' }= '1Voice - Member Management'
+          %a{ :class => 'brand', :href => '#' }= '1Voice - Members'
 
           - if session[:tab] != :login and session[:tab] != :sign_up and session[:tab] != nil
             #main-nav-bar.nav-collapse
               %ul{ :class => 'nav navbar-nav' }
-                = content_tag(:li, link_to('Home'), :class => "#{'active' if session[:tab] == :home}")
                 = content_tag(:li, link_to('Members', members_path), :class => "#{'active' if session[:tab] == :members}")
                 = content_tag(:li, link_to('Users', users_path), :class => "#{'active' if session[:tab] == :users}")
 

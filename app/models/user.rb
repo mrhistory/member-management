@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
   has_secure_password
 
+  validates :email_address, uniqueness: true
+
   def self.search(search)
     if search
       if search.include? ';'

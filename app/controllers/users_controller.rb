@@ -1,3 +1,5 @@
+require 'securerandom'
+
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   helper_method :sort_column, :sort_direction
@@ -64,10 +66,16 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     authenticate!
-    @user = User.new(user_params)
+    @password = SecureRandom.urlsafe_base64(8)
+    @user = User.new( { 
+      email_address: user_params[:email_address],
+      password: @password,
+      password_confirmation: @password
+    })
 
     respond_to do |format|
       if @user.save
+        UserMailer.welcome_email(@user, @password).deliver
         format.html { redirect_to @user, notice: 'User was successfully created.' }
         format.json { render action: 'show', status: :created, location: @user }
       else
