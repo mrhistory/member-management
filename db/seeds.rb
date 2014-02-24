@@ -14,6 +14,28 @@ count = 0
   count += 1
 end
 
+Member.create(
+  first_name: 'Jamison',
+  last_name: 'Chambers',
+  address1: '323 Villa Ridge Pkwy',
+  city: 'Lawrenceville',
+  state: 'GA',
+  zipcode: '30044',
+  email_address: 'mrhistory@gmail.com',
+  phone_number: '7706565518'
+)
+
+Member.create(
+  first_name: 'Jim',
+  last_name: 'Chambers',
+  address1: '318 Villa Ridge Pkwy',
+  city: 'Lawrenceville',
+  state: 'GA',
+  zipcode: '30044',
+  email_address: 'mrhistory@gmail.com',
+  phone_number: '7706565518'
+)
+
 # Create test User records
 count = 0
 20.times do

@@ -2,6 +2,8 @@ MemberManagement::Application.routes.draw do
   get 'login' => 'users#login'
   post 'authenticate' => 'users#authenticate'
   get 'logout' => 'users#logout'
+  get 'settings' => 'users#settings'
+  put 'change_settings' => 'users#change_settings'
 
   resources :users
   resources :members

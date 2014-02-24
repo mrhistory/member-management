@@ -3,6 +3,7 @@
 
 = form_tag(users_path, method: 'get', :class => 'form-inline', :id => 'users_search') do
   .form-group
+    = hidden_field_tag(:authenticity_token, form_authenticity_token)
     = hidden_field_tag(:direction, params[:direction])
     = hidden_field_tag(:sort, params[:sort])
     = text_field_tag(:search, params[:search], :autofocus => true)

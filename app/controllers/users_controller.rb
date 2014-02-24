@@ -11,11 +11,13 @@ class UsersController < ApplicationController
 
   # POST /authenticate
   def authenticate
-    session[:user] = User.where(email_address: params[:email_address]).first.try(:authenticate, params[:password])
-    if !session[:user].nil?
+    @user = User.where(email_address: params[:email_address]).first.try(:authenticate, params[:password])
+    if @user
+      session[:user] = @user.id
       cookies.signed[:user] = session[:user] unless params[:remember_me] != '1'
       redirect_to members_path
     else
+      session[:user] = nil
       @error = 'Incorrect email address or password.'
       render action: 'login'
     end
@@ -109,6 +111,56 @@ class UsersController < ApplicationController
       format.html { redirect_to users_url }
       format.json { head :no_content }
     end
+  end
+
+  def settings
+    authenticate!
+    @user = User.find(session[:user])
+    @errors = []
+    @members = Member.where(email_address: @user.email_address)
+    set_tab(:settings)
+  end
+
+  def change_settings
+    authenticate!
+    @user = User.find(session[:user])
+    Member.where(user_id: @user.id).each do |member|
+      member.update(user_id: nil)
+    end
+
+    if params[:member_record] != '0'
+      @member = Member.find(params[:member_record])
+    else
+      @member = Member.new()
+    end
+    @member.update(
+      first_name: params[:first_name],
+      last_name: params[:last_name],
+      email_address: params[:email_address],
+      phone_number: params[:phone_number],
+      address1: params[:address1],
+      address2: params[:address2],
+      city: params[:city],
+      state: params[:state],
+      zipcode: params[:zipcode],
+      user_id: @user.id
+    )
+
+    if params[:password] != ''
+      @user.update(
+        email_address: params[:email_address],
+        password: params[:password],
+        password_confirmation: params[:password_confirmation],
+        member_id: @member.id
+      )
+    else
+      @user.update(
+        email_address: params[:email_address],
+        member_id: @member.id
+      )
+    end
+
+    redirect_to members_path
   end
 
   private

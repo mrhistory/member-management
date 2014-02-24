@@ -2,7 +2,6 @@ class UserMailer < ActionMailer::Base
   default from: "#{APP_CONFIG[:email][:from_name]} <#{APP_CONFIG[:email][:from_email]}>"
 
   def welcome_email(user, password)
-    logger.debug "MAILER: #{user.inspect}"
     @user = user
     @password = password
     @url = APP_CONFIG[:base_url] + "/login"
