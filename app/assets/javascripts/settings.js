@@ -19,6 +19,6 @@ function clearMemberRecord() {
     $('#address1').val('');
     $('#address2').val('');
     $('#city').val('');
-    $('#state').val('');
+    $('#state').val('AL');
     $('#zipcode').val('');
 }

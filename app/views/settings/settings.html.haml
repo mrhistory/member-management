@@ -11,7 +11,7 @@
                 - @errors.each do |msg|
                   %li= msg
 
-      = form_tag('/change_settings', method: :put) do
+      = form_tag(settings_path, method: :put, id: 'settings_form') do
         = hidden_field_tag(:authenticity_token, form_authenticity_token)
         .row
           .span4
@@ -29,50 +29,44 @@
             - @members.each do |member|
               .form-group
                 = label_tag(:member_record) do
-                  = radio_button_tag(:member_record, member.id, member.id == @user.member_id, :onclick => "getMemberRecord(#{member.id});")
+                  = radio_button_tag(:member_record, member.id, member == @user.member, :onclick => "getMemberRecord(#{member.id});")
                   = "#{member.first_name} #{member.last_name}; #{member.email_address}; #{member.address1} #{member.address2}, #{member.city}, #{member.state}, #{member.zipcode}; #{member.phone_number}"
             .form-group
               = label_tag(:member_record) do
-                = radio_button_tag(:member_record, '0', @user.member_id.nil?, :onclick => "clearMemberRecord();")
+                = radio_button_tag(:member_record, '0', @user.member.nil?, :onclick => "clearMemberRecord();")
                 = "None of the above"
         %br
         %br
         .row
           .span4.form-group
             = label_tag(:first_name, 'First Name')
-            = text_field_tag(:first_name, nil, :class => 'form-control', :style => 'width: 100%;')
+            = text_field_tag(:first_name, @user.member.nil? ? '' : @user.member.first_name, :class => 'form-control', :style => 'width: 100%;')
           .span4.form-group
             = label_tag(:last_name, 'Last Name')
-            = text_field_tag(:last_name, nil, :class => 'form-control', :style => 'width: 100%;')
+            = text_field_tag(:last_name, @user.member.nil? ? '' : @user.member.last_name, :class => 'form-control', :style => 'width: 100%;')
         .row
           .span4.form-group
             = label_tag(:phone_number, 'Phone Number')
-            = telephone_field_tag(:phone_number, nil, :class => 'form-control', :style => 'width: 100%;')
+            = telephone_field_tag(:phone_number, @user.member.nil? ? '' : @user.member.phone_number, :class => 'form-control', :style => 'width: 100%;')
         .row
           .span8.form-group
             = label_tag(:address1, 'Address 1')
-            = text_field_tag(:address1, nil, :class => 'form-control', :style => 'width: 100%;')
+            = text_field_tag(:address1, @user.member.nil? ? '' : @user.member.address1, :class => 'form-control', :style => 'width: 100%;')
         .row
           .span8.form-group
             = label_tag(:address2, 'Address 2')
-            = text_field_tag(:address2, nil, :class => 'form-control', :style => 'width: 100%;')
+            = text_field_tag(:address2, @user.member.nil? ? '' : @user.member.address2, :class => 'form-control', :style => 'width: 100%;')
         .row
           .span4.form-group
             = label_tag(:city, 'City')
-            = text_field_tag(:city, nil, :class => 'form-control', :style => 'width: 100%;')
+            = text_field_tag(:city, @user.member.nil? ? '' : @user.member.city, :class => 'form-control', :style => 'width: 100%;')
           .span1.form-group
             = label_tag(:state, 'State')
-            = select_tag(:state, options_from_collection_for_select(us_states, :abbr, :abbr), { :class => 'form-control', :style => 'width: 100%; min-width: 60px;' })
+            = select_tag(:state, options_from_collection_for_select(us_states, :abbr, :abbr, selected: @user.member.nil? ? 'AL' : @user.member.state), { :class => 'form-control', :style => 'width: 100%; min-width: 60px;' })
           .span3.form-group
             = label_tag(:zipcode, 'Zipcode')
-            = text_field_tag(:zipcode, nil, :class => 'form-control', :style => 'width: 100%;')
+            = text_field_tag(:zipcode, @user.member.nil? ? '' : @user.member.zipcode, :class => 'form-control', :style => 'width: 100%;')
         .row
           %div{ :class => 'span8', :style => 'text-align: right;' }
             = submit_tag('Save', :class => 'btn btn-primary')
             = link_to(t('.cancel', :default => t("helpers.links.cancel")), members_path(:sort => session[:members_sort], :direction => session[:members_direction], :page => session[:members_page], :search => session[:members_search]), :class => 'btn')
-
-- unless @user.member_id.nil?
-  :javascript
-    $(document).ready(
-      getMemberRecord("#{@user.member_id}")
-    );

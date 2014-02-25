@@ -1,4 +1,5 @@
 class Member < ActiveRecord::Base
+  has_one :user
 
   def self.search(search)
     if search

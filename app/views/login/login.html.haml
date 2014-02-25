@@ -1,0 +1,25 @@
+.container
+  .row
+    .span4.offset4
+      %h3= 'Login'
+      - if !@error.nil?
+        .alert.alert-error
+          %small= @error
+  .row.show-grid
+    .span4.offset4
+      .hero-unit
+        = form_tag(login_path, :method => 'post', :id => 'login_form') do
+          .form-group
+            = label_tag(:email_address, 'Email Address', :style => 'width: 100%;')
+            = text_field_tag(:email_address, '', :class => 'form-control', :style => 'width: 100%;', :autofocus => true)
+            = label_tag(:password, 'Password', :style => 'width: 100%;')
+            = password_field_tag(:password, '', :class => 'form-control', :style => 'width: 100%;')
+            = label_tag(:remember_me) do
+              = check_box_tag(:remember_me)
+              = 'Remember me?'
+            = submit_tag('Login', :class => 'btn pull-right')
+        %br
+        %small
+          = link_to('Forgot password?')
+          %br
+          = link_to('Create new account')

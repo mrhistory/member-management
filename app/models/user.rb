@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   has_secure_password
+  has_one :member
 
   validates :email_address, uniqueness: true
 
@@ -13,7 +14,7 @@ class User < ActiveRecord::Base
         where("email_address like :search", { search: parameterize(search) })
       end
     else
-      all
+      joins(:member).all
     end
   end
 

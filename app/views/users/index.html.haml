@@ -16,10 +16,30 @@
       %th
         = sortable_link 'email_address'
         %i{ :class => sortable_class('email_address') }
+      %th
+        = sortable_link 'member.first_name', 'First Name'
+        %i{ :class => sortable_class('member.first_name') }
+      %th
+        = sortable_link 'last_name'
+        %i{ :class => sortable_class('last_name') }
+      %th
+        = sortable_link 'city'
+        %i{ :class => sortable_class('city') }
+      %th
+        = sortable_link 'state'
+        %i{ :class => sortable_class('state') }
+      %th
+        = sortable_link 'phone_number'
+        %i{ :class => sortable_class('phone_number') }
   %tbody
     - @users.each do |user|
       %tr
         %td= link_to user.email_address, user_path(user)
+        %td= user.member.nil? ? '' : user.member.first_name
+        %td= user.member.nil? ? '' : user.member.last_name
+        %td= user.member.nil? ? '' : user.member.city
+        %td= user.member.nil? ? '' : user.member.state
+        %td= user.member.nil? ? '' : user.member.phone_number
 
 = will_paginate @users
 
