@@ -98,7 +98,11 @@ class UsersController < ApplicationController
     end
 
     def sort_column
-      User.column_names.include?(session[:users_sort]) ? session[:users_sort] : "email_address"
+      if User.column_names.include?(session[:users_sort]) or Member.column_names.include?(session[:users_sort])
+        session[:users_sort]
+      else
+        "email_address"
+      end
     end
     
     def sort_direction

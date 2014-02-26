@@ -32,7 +32,7 @@ class Member < ActiveRecord::Base
                zipcode like :search", { search: parameterize(search) })
       end
     else
-      all
+      scoped
     end
   end
 
