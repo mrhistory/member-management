@@ -42,4 +42,5 @@
 
 = will_paginate @users
 
-= link_to t('.new', :default => t("helpers.links.new")), new_user_path, :class => 'btn btn-primary'
+- if User.find(session[:user]).edit_users_allowed?
+  = link_to t('.new', :default => t("helpers.links.new")), new_user_path, :class => 'btn btn-primary'

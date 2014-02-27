@@ -16,4 +16,22 @@ module ApplicationHelper
     link_to title, sortable_hash(column)
   end
 
+  def display_field(field, field_name)
+    "<strong>#{field_name}</strong>
+    <br/>
+    #{field}".html_safe
+  end
+
+  def display_email(field, field_name)
+    "<strong>#{field_name}</strong>
+    <br/>
+    <a href='mailto:#{field}'>#{field}</a>".html_safe
+  end
+
+  def display_phone(field, field_name)
+    "<strong>#{field_name}</strong>
+    <br/>
+    <a href='tel:#{field}'>#{field}</a>".html_safe
+  end
+
 end

@@ -12,6 +12,26 @@
       .span4.form_group
         = f.label(:email_address, 'Email Address', :style => 'width: 100%;')
         = f.email_field(:email_address, :class => 'form-control', :style => 'width: 100%;', :autofocus => true)
+      .span4
+        %h5= 'Permissions:'
+        .row
+          .span2.form_group
+            = label_tag(:view_members) do
+              = check_box_tag(:view_members, '1', @user.view_members, :class => 'form-control')
+              = 'View Members'
+          .span2.form_group
+            = label_tag(:edit_members) do
+              = check_box_tag(:edit_members, '1', @user.edit_members, :class => 'form-control')
+              = 'Edit Members'
+        .row
+          .span2.form_group
+            = label_tag(:view_users) do
+              = check_box_tag(:view_users, '1', @user.view_users, :class => 'form-control')
+              = 'View Users'
+          .span2.form_group
+            = label_tag(:edit_users) do
+              = check_box_tag(:edit_users, '1', @user.edit_users, :class => 'form-control')
+              = 'Edit Users'
     .row
       %div{ :class => 'span4', :style => 'text-align: left;' }
         = f.submit(nil, :class => 'btn btn-primary')

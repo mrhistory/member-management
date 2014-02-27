@@ -38,8 +38,8 @@
         %i{ :class => sortable_class('phone_number') }
   %tbody
     - @members.each do |member|
-      %tr
-        %td= link_to member.first_name, member_path(member)
+      %tr{ :onclick => "location.href='#{member_path(member)}';" }
+        %td= member.first_name
         %td= member.last_name
         %td= member.email_address
         %td= member.address1
@@ -50,5 +50,5 @@
 
 = will_paginate @members
 
-- if allow_edits
+- if User.find(session[:user]).edit_members_allowed?
   = link_to t('.new', :default => t("helpers.links.new")), new_member_path, :class => 'btn btn-primary'

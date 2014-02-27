@@ -50,5 +50,9 @@ end
 User.create(
   email_address: 'mrhistory@gmail.com',
   password: 'admin01',
-  password_confirmation: 'admin01'
+  password_confirmation: 'admin01',
+  view_members: true,
+  edit_members: true,
+  view_users: true,
+  edit_users: true
 )

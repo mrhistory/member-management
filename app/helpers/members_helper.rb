@@ -1,9 +1,5 @@
 module MembersHelper
 
-  def allow_edits
-      APP_CONFIG[:allow_member_record_edits]
-  end
-
   def us_states
     array = []
     array.push(State.new('AL', 'Alabama'))

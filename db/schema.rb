@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140224182701) do
+ActiveRecord::Schema.define(version: 20140227174246) do
 
   create_table "members", force: true do |t|
     t.string   "email_address"
@@ -36,6 +36,10 @@ ActiveRecord::Schema.define(version: 20140224182701) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "member_id"
+    t.boolean  "view_members"
+    t.boolean  "edit_members"
+    t.boolean  "view_users"
+    t.boolean  "edit_users"
   end
 
   add_index "users", ["member_id"], name: "index_users_on_member_id"

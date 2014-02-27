@@ -39,4 +39,24 @@ class User < ActiveRecord::Base
     parameter = '' if parameter.nil?
     '%' + parameter + '%'
   end
+
+  def view_members_allowed?
+    view_members
+  end
+
+  def edit_members_allowed?
+    if APP_CONFIG[:allow_member_record_edits]
+      edit_members
+    else
+      false
+    end
+  end
+
+  def view_users_allowed?
+    view_users
+  end
+
+  def edit_users_allowed?
+    edit_users
+  end
 end
