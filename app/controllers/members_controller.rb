@@ -5,8 +5,8 @@ class MembersController < ApplicationController
   # GET /members
   # GET /members.json
   def index
-    authenticate!
-    redirect_if_view_members_not_allowed!
+    return unless authenticate!
+    return unless redirect_if_view_members_not_allowed!
     session[:members_sort] = params[:sort]
     session[:members_direction] = params[:direction]
     session[:members_page] = params[:page]
@@ -19,7 +19,7 @@ class MembersController < ApplicationController
   # GET /members/1
   # GET /members/1.json
   def show
-    authenticate!
+    return unless authenticate!
     respond_to do |format|
       format.html { redirect_if_view_members_not_allowed! }
       format.json
@@ -29,27 +29,27 @@ class MembersController < ApplicationController
 
   # GET /members/new
   def new
-    authenticate!
-    redirect_if_view_members_not_allowed!
-    redirect_if_edit_members_not_allowed!
+    return unless authenticate!
+    return unless redirect_if_view_members_not_allowed!
+    return unless redirect_if_edit_members_not_allowed!
     @member = Member.new
     set_tab(:members)
   end
 
   # GET /members/1/edit
   def edit
-    authenticate!
-    redirect_if_view_members_not_allowed!
-    redirect_if_edit_members_not_allowed!
+    return unless authenticate!
+    return unless redirect_if_view_members_not_allowed!
+    return unless redirect_if_edit_members_not_allowed!
     set_tab(:members)
   end
 
   # POST /members
   # POST /members.json
   def create
-    authenticate!
-    redirect_if_view_members_not_allowed!
-    redirect_if_edit_members_not_allowed!
+    return unless authenticate!
+    return unless redirect_if_view_members_not_allowed!
+    return unless redirect_if_edit_members_not_allowed!
     @member = Member.new(member_params)
 
     respond_to do |format|
@@ -66,9 +66,9 @@ class MembersController < ApplicationController
   # PATCH/PUT /members/1
   # PATCH/PUT /members/1.json
   def update
-    authenticate!
-    redirect_if_view_members_not_allowed!
-    redirect_if_edit_members_not_allowed!
+    return unless authenticate!
+    return unless redirect_if_view_members_not_allowed!
+    return unless redirect_if_edit_members_not_allowed!
     respond_to do |format|
       if @member.update(member_params)
         format.html { redirect_to @member, notice: 'Member was successfully updated.' }
@@ -83,9 +83,9 @@ class MembersController < ApplicationController
   # DELETE /members/1
   # DELETE /members/1.json
   def destroy
-    authenticate!
-    redirect_if_view_members_not_allowed!
-    redirect_if_edit_members_not_allowed!
+    return unless authenticate!
+    return unless redirect_if_view_members_not_allowed!
+    return unless redirect_if_edit_members_not_allowed!
     @member.destroy
     respond_to do |format|
       format.html { redirect_to members_url }
