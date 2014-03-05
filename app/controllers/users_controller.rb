@@ -1,7 +1,6 @@
 require 'securerandom'
 
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
   helper_method :sort_column, :sort_direction
 
   # GET /users

@@ -1,6 +1,5 @@
 class MembersController < ApplicationController
   helper_method :sort_column, :sort_direction
-  before_action :set_member, only: [:show, :edit, :update, :destroy]
 
   # GET /members
   # GET /members.json

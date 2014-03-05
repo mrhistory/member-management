@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-MemberManagement::Application.config.secret_key_base = '90e1f70e4a66ec624b900f8f68421c8d4a899530b7284641888947713a2db36bfd0ff2f8b59d0d2afbbde5afe702af7dc97e0eabad9718a65f4f6a8cfe3e79bc'
+MemberManagement::Application.config.secret_token = '90e1f70e4a66ec624b900f8f68421c8d4a899530b7284641888947713a2db36bfd0ff2f8b59d0d2afbbde5afe702af7dc97e0eabad9718a65f4f6a8cfe3e79bc'
