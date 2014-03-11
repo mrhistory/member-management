@@ -10,7 +10,7 @@ class LoginController < ApplicationController
     if @user
       session[:user] = @user.id
       cookies.signed[:user] = session[:user] unless params[:remember_me] != '1'
-      if @user.member_id.nil?
+      if @user.member.nil?
         redirect_to settings_path
       else
         redirect_to members_path

@@ -16,6 +16,8 @@ class ApplicationController < ActionController::Base
         session[:user] = cookies[:user]
         return true
       end
+    else
+      return true
     end 
   end
 

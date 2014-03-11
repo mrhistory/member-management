@@ -1,5 +1,5 @@
 class AddMemberColumnToUsersTable < ActiveRecord::Migration
   def change
-    add_column :users, :member, :integer, index: true
+    add_column :users, :member_id, :integer, index: true
   end
 end

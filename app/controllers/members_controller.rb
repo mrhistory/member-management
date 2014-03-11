@@ -19,8 +19,11 @@ class MembersController < ApplicationController
   # GET /members/1.json
   def show
     return unless authenticate!
+    @member = Member.find(params[:id])
     respond_to do |format|
-      format.html { redirect_if_view_members_not_allowed! }
+      format.html {
+        return unless redirect_if_view_members_not_allowed!
+      }
       format.json
     end
     set_tab(:members)
