@@ -5,11 +5,11 @@
   .form-group
     = hidden_field_tag(:direction, params[:direction])
     = hidden_field_tag(:sort, params[:sort])
-    = text_field_tag(:search, params[:search], :autofocus => true)
-    = submit_tag('Search', :class => 'btn btn-mini btn-default')
-    = link_to('Clear', members_path, :class => 'btn btn-mini btn-default')
+    = text_field_tag(:search, params[:search], :autofocus => true, :class => 'form-control input-sm')
+    = submit_tag('Search', :class => 'btn btn-sm btn-default')
+    = link_to('Clear', members_path, :class => 'btn btn-sm btn-default')
 
-%table.table.table-striped
+%table.table.table-hover.table-condensed.table-responsive
   %thead
     %tr
       %th
@@ -38,7 +38,7 @@
         %i{ :class => sortable_class('phone_number') }
   %tbody
     - @members.each do |member|
-      %tr{ :onclick => "location.href='#{member_path(member)}';" }
+      %tr{ :onclick => "location.href='#{member_path(member)}';", :style => 'cursor: pointer;' }
         %td= member.first_name
         %td= member.last_name
         %td= member.email_address
@@ -49,6 +49,6 @@
         %td= member.phone_number
 
 = will_paginate @members
-
+%br
 - if User.find(session[:user]).edit_members_allowed?
   = link_to t('.new', :default => t("helpers.links.new")), new_member_path, :class => 'btn btn-primary'

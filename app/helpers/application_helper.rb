@@ -7,8 +7,8 @@ module ApplicationHelper
 
   def sortable_class(column)
     return nil unless column == sort_column
-    return 'icon-chevron-up' if sortable_hash(column)[:direction] == "asc"
-    return 'icon-chevron-down' if sortable_hash(column)[:direction] == "desc"
+    return 'glyphicon glyphicon-chevron-up' if sortable_hash(column)[:direction] == "asc"
+    return 'glyphicon glyphicon-chevron-down' if sortable_hash(column)[:direction] == "desc"
   end
 
   def sortable_link(column, title = nil)
