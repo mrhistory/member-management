@@ -32,18 +32,15 @@ private
 
 def update_user(user, member, params)
   if params[:password] != ''
-    user.update(
-      email_address: params[:email_address],
-      password: params[:password],
-      password_confirmation: params[:password_confirmation],
-      member: member
-    )
+    user.email_address = params[:email_address]
+    user.password = params[:password]
+    user.password_confirmation = params[:password_confirmation]
+    user.member = member
   else
-    user.update(
-      email_address: params[:email_address],
-      member: member
-    )
+    user.email_address = params[:email_address]
+    user.member = member
   end
+  user.save!
 end
 
 def get_member(params)
@@ -55,18 +52,17 @@ def get_member(params)
 end
 
 def update_member(member, user, params)
-  member.update(
-    first_name: params[:first_name],
-    last_name: params[:last_name],
-    email_address: params[:email_address],
-    phone_number: params[:phone_number],
-    address1: params[:address1],
-    address2: params[:address2],
-    city: params[:city],
-    state: params[:state],
-    zipcode: params[:zipcode],
-    user: user
-  )
+  member.first_name = params[:first_name]
+  member.last_name = params[:last_name]
+  member.email_address = params[:email_address]
+  member.phone_number = params[:phone_number]
+  member.address1 = params[:address1]
+  member.address2 = params[:address2]
+  member.city = params[:city]
+  member.state = params[:state]
+  member.zipcode = params[:zipcode]
+  member.user = user
+  member.save!
 end
 
 # Sets Members with the User Id user_id to User Id of nil
