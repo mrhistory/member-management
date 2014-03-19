@@ -24,16 +24,14 @@
               = label_tag(:password_confirmation, 'Confirm Password')
               = password_field_tag(:password_confirmation, nil, :class => 'form-control', :style => 'width: 100%;')
           .col-md-6
-            %h5= 'Associated Member Record'
+            = label_tag(:associated_member_record, 'Associated Member Record')
             - @members.each do |member|
               .form-group
-                = label_tag(:member_record) do
-                  = radio_button_tag(:member_record, member.id, member == @user.member, :onclick => "getMemberRecord(#{member.id});")
-                  = "#{member.first_name} #{member.last_name}; #{member.email_address}; #{member.address1} #{member.address2}, #{member.city}, #{member.state}, #{member.zipcode}; #{member.phone_number}"
+                = radio_button_tag(:member_record, member.id, member == @user.member, :onclick => "getMemberRecord(#{member.id});")
+                = "#{member.first_name} #{member.last_name}; #{member.email_address}; #{member.address1} #{member.address2}, #{member.city}, #{member.state}, #{member.zipcode}; #{member.phone_number}"
             .form-group
-              = label_tag(:member_record) do
-                = radio_button_tag(:member_record, '0', @user.member.nil?, :onclick => "clearMemberRecord();")
-                = "None of the above"
+              = radio_button_tag(:member_record, '0', @user.member.nil?, :onclick => "clearMemberRecord();")
+              = "None of the above"
         %br
         %br
         .row
