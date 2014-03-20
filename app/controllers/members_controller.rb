@@ -43,6 +43,7 @@ class MembersController < ApplicationController
     return unless authenticate!
     return unless redirect_if_view_members_not_allowed!
     return unless redirect_if_edit_members_not_allowed!
+    @member = Member.find(params[:id])
     set_tab(:members)
   end
 
