@@ -5,42 +5,43 @@
   .form-group
     = hidden_field_tag(:direction, params[:direction])
     = hidden_field_tag(:sort, params[:sort])
-    = text_field_tag(:search, params[:search], :autofocus => true)
-    = submit_tag('Search', :class => 'btn btn-mini btn-default')
-    = link_to('Clear', users_path, :class => 'btn btn-mini btn-default')
+    = text_field_tag(:search, params[:search], :autofocus => true, :class => 'form-control input-sm')
+    = submit_tag('Search', :class => 'btn btn-sm btn-default')
+    = link_to('Clear', users_path, :class => 'btn btn-sm btn-default')
 
-%table.table.table-striped
-  %thead
-    %tr
-      %th
-        = sortable_link 'email_address'
-        %i{ :class => sortable_class('email_address') }
-      %th
-        = sortable_link 'first_name'
-        %i{ :class => sortable_class('first_name') }
-      %th
-        = sortable_link 'last_name'
-        %i{ :class => sortable_class('last_name') }
-      %th
-        = sortable_link 'city'
-        %i{ :class => sortable_class('city') }
-      %th
-        = sortable_link 'state'
-        %i{ :class => sortable_class('state') }
-      %th
-        = sortable_link 'phone_number'
-        %i{ :class => sortable_class('phone_number') }
-  %tbody
-    - @users.each do |user|
+.table-responsive
+  %table.table.table-hover.table-condensed
+    %thead
       %tr
-        %td= link_to user.email_address, user_path(user)
-        %td= user.member.nil? ? '' : user.member.first_name
-        %td= user.member.nil? ? '' : user.member.last_name
-        %td= user.member.nil? ? '' : user.member.city
-        %td= user.member.nil? ? '' : user.member.state
-        %td= user.member.nil? ? '' : user.member.phone_number
+        %th
+          = sortable_link 'email_address'
+          %i{ :class => sortable_class('email_address') }
+        %th
+          = sortable_link 'first_name'
+          %i{ :class => sortable_class('first_name') }
+        %th
+          = sortable_link 'last_name'
+          %i{ :class => sortable_class('last_name') }
+        %th
+          = sortable_link 'city'
+          %i{ :class => sortable_class('city') }
+        %th
+          = sortable_link 'state'
+          %i{ :class => sortable_class('state') }
+        %th
+          = sortable_link 'phone_number'
+          %i{ :class => sortable_class('phone_number') }
+    %tbody
+      - @users.each do |user|
+        %tr{ :onclick => "location.href='#{user_path(user)}';", :style => 'cursor: pointer;' }
+          %td= user.email_address
+          %td= user.member.nil? ? '' : user.member.first_name
+          %td= user.member.nil? ? '' : user.member.last_name
+          %td= user.member.nil? ? '' : user.member.city
+          %td= user.member.nil? ? '' : user.member.state
+          %td= user.member.nil? ? '' : user.member.phone_number
 
 = will_paginate @users
-
+%br
 - if User.find(session[:user]).edit_users_allowed?
   = link_to t('.new', :default => t("helpers.links.new")), new_user_path, :class => 'btn btn-primary'

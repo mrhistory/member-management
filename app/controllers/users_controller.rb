@@ -22,6 +22,7 @@ class UsersController < ApplicationController
   def show
     return unless authenticate!
     return unless redirect_if_view_users_not_allowed!
+    @user = User.find(params[:id])
     set_tab(:users)
   end
 
@@ -39,6 +40,7 @@ class UsersController < ApplicationController
     return unless authenticate!
     return unless redirect_if_view_users_not_allowed!
     return unless redirect_if_edit_users_not_allowed!
+    @user = User.find(params[:id])
     set_tab(:users)
   end
 

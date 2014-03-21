@@ -1,38 +1,38 @@
 = form_for @user do |f|
   .container
     .row
-      .span8
+      .col-md-8
         - if @user.errors.any?
           .alert.alert-danger
             %h6= pluralize(@user.errors.count, 'error') + ' prevented this user from being saved.'
             %ul
               - @user.errors.full_messages.each do |msg|
-                %li= msg
+                %li.small= msg
     .row
-      .span4.form_group
-        = f.label(:email_address, 'Email Address', :style => 'width: 100%;')
-        = f.email_field(:email_address, :class => 'form-control', :style => 'width: 100%;', :autofocus => true)
-      .span4
-        %h5= 'Permissions:'
+      .col-md-3.form_group
+        = f.label(:email_address, 'Email Address')
+        = f.email_field(:email_address, :class => 'form-control', :autofocus => true)
+      .col-md-4.col-md-offset-1
+        = label_tag(:permissions, 'Permissions:')
         .row
-          .span2.form_group
+          .col-md-2.checkbox
             = label_tag(:view_members) do
-              = check_box_tag(:view_members, '1', @user.view_members, :class => 'form-control')
+              = check_box_tag(:view_members, '1', @user.view_members)
               = 'View Members'
-          .span2.form_group
+          .col-md-2.checkbox
             = label_tag(:edit_members) do
-              = check_box_tag(:edit_members, '1', @user.edit_members, :class => 'form-control')
+              = check_box_tag(:edit_members, '1', @user.edit_members)
               = 'Edit Members'
         .row
-          .span2.form_group
+          .col-md-2.checkbox
             = label_tag(:view_users) do
-              = check_box_tag(:view_users, '1', @user.view_users, :class => 'form-control')
+              = check_box_tag(:view_users, '1', @user.view_users)
               = 'View Users'
-          .span2.form_group
+          .col-md-2.checkbox
             = label_tag(:edit_users) do
-              = check_box_tag(:edit_users, '1', @user.edit_users, :class => 'form-control')
+              = check_box_tag(:edit_users, '1', @user.edit_users)
               = 'Edit Users'
     .row
-      %div{ :class => 'span4', :style => 'text-align: left;' }
+      %div{ :style => 'text-align: right;' }
         = f.submit(nil, :class => 'btn btn-primary')
-        = link_to(t('.cancel', :default => t("helpers.links.cancel")), users_path(:sort => session[:users_sort], :direction => session[:users_direction], :page => session[:users_page], :search => session[:users_search]), :class => 'btn')
+        = link_to(t('.cancel', :default => t("helpers.links.cancel")), users_path(:sort => session[:users_sort], :direction => session[:users_direction], :page => session[:users_page], :search => session[:users_search]), :class => 'btn btn-default')
