@@ -14,25 +14,23 @@
         = f.email_field(:email_address, :class => 'form-control', :autofocus => true)
       .col-md-4.col-md-offset-1
         = label_tag(:permissions, 'Permissions:')
-        .row
-          .col-md-2.checkbox
-            = label_tag(:view_members) do
-              = check_box_tag(:view_members, '1', @user.view_members)
-              = 'View Members'
-          .col-md-2.checkbox
-            = label_tag(:edit_members) do
-              = check_box_tag(:edit_members, '1', @user.edit_members)
-              = 'Edit Members'
-        .row
-          .col-md-2.checkbox
-            = label_tag(:view_users) do
-              = check_box_tag(:view_users, '1', @user.view_users)
-              = 'View Users'
-          .col-md-2.checkbox
-            = label_tag(:edit_users) do
-              = check_box_tag(:edit_users, '1', @user.edit_users)
-              = 'Edit Users'
+        .checkbox
+          = label_tag(:view_members) do
+            = check_box_tag(:view_members, '1', @user.view_members)
+            = 'View Members'
+        .checkbox
+          = label_tag(:edit_members) do
+            = check_box_tag(:edit_members, '1', @user.edit_members)
+            = 'Edit Members'
+        .checkbox
+          = label_tag(:view_users) do
+            = check_box_tag(:view_users, '1', @user.view_users)
+            = 'View Users'
+        .checkbox
+          = label_tag(:edit_users) do
+            = check_box_tag(:edit_users, '1', @user.edit_users)
+            = 'Edit Users'
     .row
-      %div{ :style => 'text-align: right;' }
+      %div.col-md-8{ :style => 'text-align: right;' }
         = f.submit(nil, :class => 'btn btn-primary')
         = link_to(t('.cancel', :default => t("helpers.links.cancel")), users_path(:sort => session[:users_sort], :direction => session[:users_direction], :page => session[:users_page], :search => session[:users_search]), :class => 'btn btn-default')
