@@ -3,24 +3,24 @@ development:
   allow_self_signup: true
   base_url: localhost:3000
   email:
-    from_name: '1Voice'
-    from_email: 'mrhistory@gmail.com'
-    welcome_subject: 'Welcome to 1Voice - Members'
+    from_name: Jim's App
+    from_email: mrhistory@gmail.com
+    welcome_subject: Welcome to Jim's App - Members
 
 test:
   allow_member_record_edits: true
   allow_self_signup: true
   base_url: localhost:3000
   email:
-    from_name: '1Voice'
-    from_email: 'mrhistory@gmail.com'
-    welcome_subject: 'Welcome to 1Voice - Members'
+    from_name: Jim's App
+    from_email: mrhistory@gmail.com
+    welcome_subject: Welcome to Jim's App - Members
 
 production:
   allow_member_record_edits: true
   allow_self_signup: true
-  base_url: localhost:3000
+  base_url: members-dev.herokuapp.com
   email:
-    from_name: '1Voice'
-    from_email: 'mrhistory@gmail.com'
-    welcome_subject: 'Welcome to 1Voice - Members'
+    from_name: Jim's App
+    from_email: mrhistory@gmail.com
+    welcome_subject: Welcome to Jim's App - Members
