@@ -1,7 +1,8 @@
 class SettingsController < ApplicationController
+  before_action :authenticate!
+
   # GET /settings
   def settings
-    authenticate!
     @user = User.find(session[:user])
     @errors = []
     @members = Member.where(email_address: @user.email_address)
@@ -10,7 +11,6 @@ class SettingsController < ApplicationController
 
   # PUT /settings
   def change_settings
-    authenticate!
     @user = User.find(session[:user])
     @errors = []
     reset_user_ids(@user)

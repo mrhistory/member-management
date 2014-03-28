@@ -7,17 +7,15 @@ class ApplicationController < ActionController::Base
     session[:tab] = tab_name
   end
 
+protected
+
   def authenticate!
     if session[:user].nil?
       if cookies.signed[:user].nil?
         redirect_to(login_path)
-        return false
       else
         session[:user] = cookies[:user]
-        return true
       end
-    else
-      return true
     end 
   end
 
@@ -26,22 +24,15 @@ class ApplicationController < ActionController::Base
     if !user.view_members_allowed?
       if user.view_users_allowed?
         redirect_to(users_path)
-        return false
       else
         redirect_to(settings_path)
-        return false
       end
-    else
-      return true
     end
   end
 
   def redirect_if_edit_members_not_allowed!
     if !User.find(session[:user]).edit_members_allowed?
       redirect_to(members_path)
-      return false
-    else
-      return true
     end
   end
 
@@ -50,22 +41,15 @@ class ApplicationController < ActionController::Base
     if !user.view_users_allowed?
       if user.view_members_allowed?
         redirect_to(members_path)
-        return false
       else
         redirect_to(settings_path)
-        return false
       end
-    else
-      return true
     end
   end
 
   def redirect_if_edit_users_not_allowed!
     if !User.find(session[:user]).edit_users_allowed?
       redirect_to(users_path)
-      return false
-    else
-      return true
     end
   end
 end

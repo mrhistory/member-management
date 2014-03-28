@@ -2,12 +2,14 @@ require 'securerandom'
 
 class UsersController < ApplicationController
   helper_method :sort_column, :sort_direction
+  before_action :authenticate!
+  before_action :redirect_if_view_users_not_allowed!
+  before_action :redirect_if_edit_users_not_allowed!, only: [:new, :edit, :create, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   # GET /users
   # GET /users.json
   def index
-    return unless authenticate!
-    return unless redirect_if_view_users_not_allowed!
     session[:users_sort] = params[:sort]
     session[:users_direction] = params[:direction]
     session[:users_page] = params[:page]
@@ -20,36 +22,23 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    return unless authenticate!
-    return unless redirect_if_view_users_not_allowed!
-    @user = User.find(params[:id])
     set_tab(:users)
   end
 
   # GET /users/new
   def new
-    return unless authenticate!
-    return unless redirect_if_view_users_not_allowed!
-    return unless redirect_if_edit_users_not_allowed!
     @user = User.new
     set_tab(:users)
   end
 
   # GET /users/1/edit
   def edit
-    return unless authenticate!
-    return unless redirect_if_view_users_not_allowed!
-    return unless redirect_if_edit_users_not_allowed!
-    @user = User.find(params[:id])
     set_tab(:users)
   end
 
   # POST /users
   # POST /users.json
   def create
-    return unless authenticate!
-    return unless redirect_if_view_users_not_allowed!
-    return unless redirect_if_edit_users_not_allowed!
     @password = SecureRandom.urlsafe_base64(8)
     @user = User.new( { 
       email_address: user_params[:email_address],
@@ -76,9 +65,6 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
-    return unless authenticate!
-    return unless redirect_if_view_users_not_allowed!
-    return unless redirect_if_edit_users_not_allowed!
     respond_to do |format|
       if @user.update( { email_address: user_params[:email_address],
                         view_members: params[:view_members],
@@ -97,9 +83,6 @@ class UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
-    return unless authenticate!
-    return unless redirect_if_view_users_not_allowed!
-    return unless redirect_if_edit_users_not_allowed!
     @user.destroy
     respond_to do |format|
       format.html { redirect_to users_url }

@@ -1,11 +1,13 @@
 class MembersController < ApplicationController
   helper_method :sort_column, :sort_direction
+  before_action :authenticate!
+  before_action :redirect_if_view_members_not_allowed!, except: [:show]
+  before_action :redirect_if_edit_members_not_allowed!, only: [:new, :edit, :create, :update, :destroy]
+  before_action :set_member, only: [:show, :edit, :update, :destroy]
 
   # GET /members
   # GET /members.json
   def index
-    return unless authenticate!
-    return unless redirect_if_view_members_not_allowed!
     session[:members_sort] = params[:sort]
     session[:members_direction] = params[:direction]
     session[:members_page] = params[:page]
@@ -18,41 +20,23 @@ class MembersController < ApplicationController
   # GET /members/1
   # GET /members/1.json
   def show
-    return unless authenticate!
-    @member = Member.find(params[:id])
-    respond_to do |format|
-      format.html {
-        return unless redirect_if_view_members_not_allowed!
-      }
-      format.json
-    end
     set_tab(:members)
   end
 
   # GET /members/new
   def new
-    return unless authenticate!
-    return unless redirect_if_view_members_not_allowed!
-    return unless redirect_if_edit_members_not_allowed!
     @member = Member.new
     set_tab(:members)
   end
 
   # GET /members/1/edit
   def edit
-    return unless authenticate!
-    return unless redirect_if_view_members_not_allowed!
-    return unless redirect_if_edit_members_not_allowed!
-    @member = Member.find(params[:id])
     set_tab(:members)
   end
 
   # POST /members
   # POST /members.json
   def create
-    return unless authenticate!
-    return unless redirect_if_view_members_not_allowed!
-    return unless redirect_if_edit_members_not_allowed!
     @member = Member.new(member_params)
 
     respond_to do |format|
@@ -69,9 +53,6 @@ class MembersController < ApplicationController
   # PATCH/PUT /members/1
   # PATCH/PUT /members/1.json
   def update
-    return unless authenticate!
-    return unless redirect_if_view_members_not_allowed!
-    return unless redirect_if_edit_members_not_allowed!
     respond_to do |format|
       if @member.update(member_params)
         format.html { redirect_to @member, notice: 'Member was successfully updated.' }
@@ -86,9 +67,6 @@ class MembersController < ApplicationController
   # DELETE /members/1
   # DELETE /members/1.json
   def destroy
-    return unless authenticate!
-    return unless redirect_if_view_members_not_allowed!
-    return unless redirect_if_edit_members_not_allowed!
     @member.destroy
     respond_to do |format|
       format.html { redirect_to members_url }
