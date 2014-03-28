@@ -7,4 +7,11 @@ class UserMailer < ActionMailer::Base
     @url = APP_CONFIG[:base_url] + "/login"
     mail(to: @user.email_address, subject: APP_CONFIG[:email][:welcome_subject])
   end
+
+  def forgot_password_email(user, password)
+    @user = user
+    @password = password
+    @url = APP_CONFIG[:base_url] + "/login"
+    mail(to: @user.email_address, subject: APP_CONFIG[:email][:forgot_password_subject])
+  end
 end

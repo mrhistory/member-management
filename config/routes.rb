@@ -4,6 +4,8 @@ MemberManagement::Application.routes.draw do
   get 'logout' => 'login#logout'
   get 'settings' => 'settings#settings'
   put 'settings' => 'settings#change_settings'
+  get 'forgot' => 'login#forgot_password'
+  post 'forgot' => 'login#new_password'
 
   resources :users
   resources :members

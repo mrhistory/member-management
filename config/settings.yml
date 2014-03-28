@@ -6,6 +6,7 @@ development:
     from_name: Jim's App
     from_email: mrhistory@gmail.com
     welcome_subject: Welcome to Jim's App - Members
+    forgot_password_subject: Your new password
 
 test:
   allow_member_record_edits: true
@@ -15,6 +16,7 @@ test:
     from_name: Jim's App
     from_email: mrhistory@gmail.com
     welcome_subject: Welcome to Jim's App - Members
+    forgot_password_subject: Your new password
 
 production:
   allow_member_record_edits: true
@@ -24,3 +26,4 @@ production:
     from_name: Jim's App
     from_email: mrhistory@gmail.com
     welcome_subject: Welcome to Jim's App - Members
+    forgot_password_subject: Your new password
