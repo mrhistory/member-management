@@ -1,6 +1,6 @@
 %html
   %head
-    %title= '1Voice - Members'
+    %title= 'Members'
     = stylesheet_link_tag    'application', media: 'all'
     = javascript_include_tag 'application'
     = csrf_meta_tags
@@ -14,7 +14,7 @@
             %span.icon-bar
             %span.icon-bar
             %span.icon-bar
-          %a{ :class => 'navbar-brand', :href => '#' }= '1Voice - Members'
+          %a{ :class => 'navbar-brand', :href => '#' }= 'Members'
 
           - if session[:tab] != :login and session[:tab] != :sign_up and session[:tab] != nil
             #main-nav-bar.collapse.navbar-collapse
@@ -27,10 +27,6 @@
               %ul{ :class => 'nav navbar-nav navbar-right' }
                 = content_tag(:li, link_to('Settings', settings_path), :class => "#{'active' if session[:tab] == :settings}")
                 %li= link_to("Logout", logout_path)
-          - else
-            #main-nav-bar.collapse.navbar-collapse
-              %ul{ :class => 'nav navbar-nav navbar-right' }
-                = content_tag(:li, link_to('Sign Up'), :class => "#{'active' if session[:tab] == :sign_up}")
 
     .container
       .row

@@ -11,7 +11,7 @@ gem 'jbuilder'
 gem 'haml'
 gem 'therubyracer'
 gem 'will_paginate'
-gem 'bcrypt-ruby', '~> 3.0.0'
+gem 'bcrypt-ruby'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
